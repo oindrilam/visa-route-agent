@@ -9,6 +9,14 @@ from app.security.guardrails import check_security_guardrails
 
 app = FastAPI(title="VisaRoute Agent API")
 
+@app.get("/")
+def root():
+    return {
+        "status": "ok",
+        "project": "VisaRoute Agent",
+        "message": "Welcome to VisaRoute Agent API. Go to /docs or /health."
+    }
+
 
 class RouteRequest(BaseModel):
     visa_purpose: str
