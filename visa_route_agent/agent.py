@@ -1,4 +1,5 @@
 from google.adk.agents.llm_agent import Agent
+from app.tools.scoring_tool import estimate_visa_route
 
 
 def get_project_status() -> dict:
@@ -7,7 +8,7 @@ def get_project_status() -> dict:
         "status": "success",
         "project": "VisaRoute Agent",
         "mvp_scope": "Indian passport holders applying for tourist, student, or business visas",
-        "next_build_step": "Add visa route business logic tools"
+        "next_build_step": "Add visa rules and document checklist logic"
     }
 
 
@@ -17,8 +18,20 @@ root_agent = Agent(
     description="A visa route optimizer for Indian passport holders.",
     instruction="""
 You are VisaRoute Agent.
-Help users compare self-application, assisted platforms, corporate travel desk, and expert help.
-For now, explain that the project skeleton is ready and use the get_project_status tool when asked about project status.
+
+You help Indian passport holders estimate the best visa application route.
+
+You compare:
+- self-application
+- assisted visa platform
+- corporate travel desk
+- expert visa support
+
+Use the estimate_visa_route tool when the user gives visa purpose, destination,
+role/profile, travel urgency, previous refusal status, confidence, budget sensitivity,
+and corporate support availability.
+
+Always say this is planning guidance, not official visa advice.
 """,
-    tools=[get_project_status],
+    tools=[get_project_status, estimate_visa_route],
 )
