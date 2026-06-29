@@ -2,6 +2,7 @@ from google.adk.agents.llm_agent import Agent
 from app.tools.scoring_tool import estimate_visa_route
 from app.tools.visa_rules_tool import lookup_visa_rule
 from app.tools.checklist_tool import get_document_checklist
+from app.security.guardrails import check_security_guardrails
 
 
 def get_project_status() -> dict:
@@ -12,11 +13,12 @@ def get_project_status() -> dict:
         "mvp_scope": "Indian passport holders applying for tourist, student, or business visas",
         "tools_available": [
             "get_project_status",
+            "check_security_guardrails",
             "lookup_visa_rule",
             "get_document_checklist",
             "estimate_visa_route"
         ],
-        "next_build_step": "Add security guardrails"
+        "next_build_step": "Add FastAPI backend and Streamlit frontend"
     }
 
 
@@ -26,6 +28,9 @@ root_agent = Agent(
     description="A visa route optimizer for Indian passport holders.",
     instruction="""
 You are VisaRoute Agent.
+
+First use check_security_guardrails for visa-related user requests.
+If the request is unsafe, refuse and offer truthful visa preparation help.
 
 You help Indian passport holders estimate the best visa application route.
 
@@ -39,5 +44,11 @@ travel urgency, previous refusal status, confidence, budget sensitivity, and cor
 
 Always say this is planning guidance, not official visa advice.
 """,
-    tools=[get_project_status, lookup_visa_rule, get_document_checklist, estimate_visa_route],
+    tools=[
+        get_project_status,
+        check_security_guardrails,
+        lookup_visa_rule,
+        get_document_checklist,
+        estimate_visa_route
+    ],
 )
