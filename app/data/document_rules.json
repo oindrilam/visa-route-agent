@@ -1,0 +1,55 @@
+{
+  "tourist": {
+    "base_documents": [
+      "Valid passport",
+      "Visa application form",
+      "Recent passport-size photograph",
+      "Travel itinerary",
+      "Hotel booking or accommodation proof",
+      "Bank statements or financial proof",
+      "Travel insurance",
+      "Employment proof or leave approval"
+    ],
+    "risk_documents": [
+      "Cover letter explaining travel plan",
+      "Proof of strong ties to India"
+    ]
+  },
+  "business": {
+    "base_documents": [
+      "Valid passport",
+      "Visa application form",
+      "Recent passport-size photograph",
+      "Invitation letter from destination company",
+      "Cover letter from Indian employer",
+      "Employment proof",
+      "Travel itinerary",
+      "Hotel booking or accommodation proof",
+      "Bank statements or salary slips",
+      "Travel insurance"
+    ],
+    "risk_documents": [
+      "Company registration or business relationship proof",
+      "Previous travel history proof"
+    ]
+  },
+  "student": {
+    "base_documents": [
+      "Valid passport",
+      "Visa application form",
+      "Recent passport-size photograph",
+      "Admission letter",
+      "Fee payment proof",
+      "Academic transcripts",
+      "Financial support proof",
+      "Accommodation proof",
+      "Health insurance",
+      "Statement of purpose"
+    ],
+    "risk_documents": [
+      "Sponsor documents",
+      "Education gap explanation",
+      "Previous refusal explanation if applicable"
+    ]
+  }
+}
