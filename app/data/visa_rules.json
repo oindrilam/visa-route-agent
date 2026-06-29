@@ -1,0 +1,29 @@
+{
+  "Germany": {
+    "visa_category": "Schengen",
+    "supported_purposes": ["tourist", "business", "student"],
+    "appointment_required": true,
+    "biometrics_required": true,
+    "interview_requirement": "May be required",
+    "official_channel": "Embassy/Consulate/VFS/TLS depending on location",
+    "mvp_note": "Planning estimate only; verify official source."
+  },
+  "UK": {
+    "visa_category": "UK Visa",
+    "supported_purposes": ["tourist", "business", "student"],
+    "appointment_required": true,
+    "biometrics_required": true,
+    "interview_requirement": "May be required",
+    "official_channel": "UKVI application + visa application centre",
+    "mvp_note": "Planning estimate only; verify official source."
+  },
+  "UAE": {
+    "visa_category": "UAE Visa",
+    "supported_purposes": ["tourist", "business"],
+    "appointment_required": false,
+    "biometrics_required": false,
+    "interview_requirement": "Usually not required",
+    "official_channel": "Airline / sponsor / authorized visa service route",
+    "mvp_note": "Planning estimate only; verify official source."
+  }
+}
