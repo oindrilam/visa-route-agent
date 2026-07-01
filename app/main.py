@@ -20,9 +20,12 @@ def root():
 
 
 class RouteRequest(BaseModel):
-    visa_purpose: str
+    passport_country: str
+    source_country: str
     destination_country: str
+    visa_purpose: str
     user_segment: str
+    dependent_type: str = "not_applicable"
     travel_days_from_now: int
     previous_refusal: bool
     self_confidence: int
@@ -31,8 +34,12 @@ class RouteRequest(BaseModel):
 
 
 class ChecklistRequest(BaseModel):
-    visa_purpose: str
+    passport_country: str
+    source_country: str
     destination_country: str
+    visa_purpose: str
+    user_segment: str = "general"
+    dependent_type: str = "not_applicable"
     previous_refusal: bool = False
 
 
@@ -66,6 +73,9 @@ def visa_rule(destination_country: str):
 @app.post("/recommend")
 def recommend_route(request: RouteRequest):
     return estimate_visa_route(
+        passport_country=request.passport_country,
+        source_country=request.source_country,
+        dependent_type=request.dependent_type,
         visa_purpose=request.visa_purpose,
         destination_country=request.destination_country,
         user_segment=request.user_segment,
@@ -80,10 +90,14 @@ def recommend_route(request: RouteRequest):
 @app.post("/checklist")
 def checklist(request: ChecklistRequest):
     return get_document_checklist(
-        visa_purpose=request.visa_purpose,
+        passport_country=request.passport_country,
+        source_country=request.source_country,
         destination_country=request.destination_country,
+        visa_purpose=request.visa_purpose,
+        user_segment=request.user_segment,
+        dependent_type=request.dependent_type,
         previous_refusal=request.previous_refusal,
-    )
+)
 
 
 @app.post("/guardrail")
