@@ -215,3 +215,34 @@ if submitted:
                         "No official source links configured yet for this destination."
                     )
                 )
+
+        safety_response = requests.post(
+            f"{BACKEND_URL}/safety-assessment",
+            json={
+                "destination_country": destination_country,
+                "visa_purpose": visa_purpose,
+                "user_segment": user_segment,
+            },
+            timeout=10
+        )
+
+        if safety_response.ok:
+            safety = safety_response.json()
+
+            st.subheader("Destination Safety Assessment")
+            st.caption(safety.get("disclaimer", ""))
+
+            for category in safety.get("safety_categories", {}).values():
+                with st.expander(category["label"]):
+                    st.write(f"**Planning signal:** {category['planning_signal']}")
+                    st.write("**What to check:**")
+                    for item in category.get("what_to_check", []):
+                        st.markdown(f"- {item}")
+
+            profile_notes = safety.get("profile_notes", [])
+            if profile_notes:
+                st.write("**Profile-specific notes:**")
+                for note in profile_notes:
+                    st.markdown(f"- {note}")
+
+            st.info(safety.get("source_confidence_explanation", ""))
