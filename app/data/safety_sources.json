@@ -1,116 +1,574 @@
 {
-    "Germany": {
-        "source_mode": "semi_live_framework",
-        "official_crime_data_sources": [
+    "display_labels": {
+        "official_general_count_possible": "General official crime count may be available",
+        "proxy_possible_using_theft_or_larceny_categories": "Can be estimated using official theft / larceny data",
+        "official_context_possible_not_direct_tourist_count": "Official context may be available, but not direct tourist count",
+        "traveler_specific_not_confirmed": "Traveler-specific count is not confirmed from official data yet",
+        "official_traveler_specific_possible": "Traveler-specific official context may be available",
+        "official_stats_need_manual_verification": "Official statistics source should be manually verified",
+        "conflict_or_war_risk_context_needed": "Conflict or war-risk context must be reviewed separately"
+    },
+    "disclaimer": "These sources provide official general crime and travel-safety context. They may not identify whether victims were tourists, students, visa holders, or foreign workers. VisaRoute does not convert general crime counts into traveler-specific counts unless the official source confirms that victim group.",
+    "global_sources": {
+        "official_crime_statistics_sources": [
             {
-                "name": "Eurostat police-recorded offences",
+                "name": "UNODC Data Portal",
+                "url": "https://data.unodc.org/",
                 "source_type": "official_statistics",
-                "coverage": "Europe",
-                "use_for": [
-                    "robbery_mugging",
-                    "violent_harm",
-                    "theft_proxy_for_pickpocketing"
-                ],
+                "coverage": "International",
                 "traveler_specific": false
             },
             {
-                "name": "UNODC crime data",
-                "source_type": "international_official_dataset",
-                "coverage": "Global",
-                "use_for": [
-                    "homicide",
-                    "robbery",
-                    "violent_crime"
-                ],
+                "name": "Eurostat police-recorded offences by offence category",
+                "url": "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table?lang=en",
+                "source_type": "official_statistics",
+                "coverage": "European Union and selected European countries",
                 "traveler_specific": false
             }
         ],
-        "travel_advisory_sources": [
+        "traveler_safety_advisory_sources": [
             {
                 "name": "GOV.UK foreign travel advice",
+                "url": "https://www.gov.uk/foreign-travel-advice",
                 "source_type": "government_travel_advisory",
+                "coverage": "International destinations for UK travellers",
                 "traveler_specific": true
             },
             {
-                "name": "U.S. State Department travel advisory",
+                "name": "U.S. State Department travel advisories",
+                "url": "https://travel.state.gov/en/international-travel/travel-advisories.html",
                 "source_type": "government_travel_advisory",
+                "coverage": "International destinations for U.S. travellers",
                 "traveler_specific": true
             }
-        ],
-        "last_5_year_count_status": {
-            "women_safety": "official_context_possible_not_direct_tourist_count",
-            "robbery_mugging": "official_general_count_possible",
-            "pickpocketing": "proxy_possible_using_theft_or_larceny_categories",
-            "violent_harm": "official_general_count_possible"
-        },
-        "traveler_specific_count_available": false,
-        "counting_rule": "Only label a number as traveler-specific when the source explicitly identifies the victim group as tourists, students, visa holders, or foreign workers."
+        ]
     },
-    "United Kingdom": {
-        "source_mode": "semi_live_framework",
-        "official_crime_data_sources": [
-            {
-                "name": "UK Office for National Statistics crime data",
-                "source_type": "official_statistics",
-                "coverage": "United Kingdom",
-                "use_for": [
-                    "robbery_mugging",
-                    "violent_harm",
-                    "theft_proxy_for_pickpocketing"
-                ],
-                "traveler_specific": false
-            }
-        ],
-        "travel_advisory_sources": [
-            {
-                "name": "GOV.UK public safety and police sources",
-                "source_type": "government_source",
-                "traveler_specific": false
-            },
-            {
-                "name": "U.S. State Department travel advisory",
-                "source_type": "government_travel_advisory",
-                "traveler_specific": true
-            }
-        ],
-        "last_5_year_count_status": {
-            "women_safety": "official_context_possible_not_direct_tourist_count",
-            "robbery_mugging": "official_general_count_possible",
-            "pickpocketing": "proxy_possible_using_theft_or_larceny_categories",
-            "violent_harm": "official_general_count_possible"
+    "countries": {
+        "India": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "National Crime Records Bureau",
+                    "url": "https://www.ncrb.gov.in/",
+                    "source_type": "official_statistics",
+                    "coverage": "India",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "NCRB Crime in India 2022 report",
+                    "url": "https://www.ncrb.gov.in/uploads/nationalcrimerecordsbureau/custom/1701607577CrimeinIndia2022Book1.pdf",
+                    "source_type": "official_statistics",
+                    "coverage": "India",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / India",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK India safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/india/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "India",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department India travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/india.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "India",
+                    "traveler_specific": true
+                }
+            ]
         },
-        "traveler_specific_count_available": false,
-        "counting_rule": "Only label a number as traveler-specific when the source explicitly identifies the victim group as tourists, students, visa holders, or foreign workers."
-    },
-    "default": {
-        "source_mode": "semi_live_framework",
-        "official_crime_data_sources": [
-            {
-                "name": "UNODC crime data",
-                "source_type": "international_official_dataset",
-                "coverage": "Global",
-                "use_for": [
-                    "homicide",
-                    "robbery",
-                    "violent_crime"
-                ],
-                "traveler_specific": false
-            }
-        ],
-        "travel_advisory_sources": [
-            {
-                "name": "Government travel advisories",
-                "source_type": "government_travel_advisory",
-                "traveler_specific": true
-            }
-        ],
-        "last_5_year_count_status": {
-            "women_safety": "source_review_required",
-            "robbery_mugging": "official_general_count_may_be_possible",
-            "pickpocketing": "proxy_possible_using_theft_or_larceny_categories",
-            "violent_harm": "official_general_count_may_be_possible"
+        "United Kingdom": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "ONS crime and justice statistics",
+                    "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice",
+                    "source_type": "official_statistics",
+                    "coverage": "England and Wales",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Police.uk open crime data",
+                    "url": "https://data.police.uk/",
+                    "source_type": "official_statistics",
+                    "coverage": "England, Wales and Northern Ireland",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Scottish Government recorded crime statistics",
+                    "url": "https://www.gov.scot/collections/recorded-crime-in-scotland/",
+                    "source_type": "official_statistics",
+                    "coverage": "Scotland",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "U.S. State Department United Kingdom travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/united-kingdom.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "United Kingdom",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "GOV.UK foreign travel advice index",
+                    "url": "https://www.gov.uk/foreign-travel-advice",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Global index",
+                    "traveler_specific": true
+                }
+            ]
         },
-        "traveler_specific_count_available": false,
-        "counting_rule": "Only label a number as traveler-specific when the source explicitly identifies the victim group as tourists, students, visa holders, or foreign workers."
+        "United States": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "FBI Crime Data Explorer",
+                    "url": "https://cde.ucr.cjis.gov/",
+                    "source_type": "official_statistics",
+                    "coverage": "United States",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / United States",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK USA safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/usa/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "United States",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department travel advisories index",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Global index",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "Canada": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "Statistics Canada crime and justice statistics",
+                    "url": "https://www.statcan.gc.ca/en/subjects-start/crime_and_justice",
+                    "source_type": "official_statistics",
+                    "coverage": "Canada",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Statistics Canada crime severity index",
+                    "url": "https://www.statcan.gc.ca/hub-carrefour/quality-life-qualite-vie/good-governance-saine-gouvernance/crime-severity-index-indice-gravite-criminalite-eng.htm",
+                    "source_type": "official_statistics",
+                    "coverage": "Canada",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / Canada",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK Canada safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/canada/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Canada",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department Canada travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/canada.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Canada",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "Japan": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "Japan National Police Agency statistics",
+                    "url": "https://www.npa.go.jp/english/Statistics.html",
+                    "source_type": "official_statistics",
+                    "coverage": "Japan",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Japan Ministry of Justice White Paper on Crime",
+                    "url": "https://hakusyo1.moj.go.jp/en/",
+                    "source_type": "official_statistics",
+                    "coverage": "Japan",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / Japan",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK Japan safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/japan/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Japan",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department Japan travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/japan.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Japan",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "Germany": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "Germany BKA police crime statistics",
+                    "url": "https://www.bka.de/EN/CurrentInformation/Statistics/PoliceCrimeStatistics/policecrimestatistics_node.html",
+                    "source_type": "official_statistics",
+                    "coverage": "Germany",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Eurostat police-recorded offences by offence category",
+                    "url": "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table?lang=en",
+                    "source_type": "official_statistics",
+                    "coverage": "European Union / Germany",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / Germany",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK Germany safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/germany/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Germany",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department Germany travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/germany.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Germany",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "France": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "INSEE crime and justice statistics",
+                    "url": "https://www.insee.fr/en/statistiques?theme=32",
+                    "source_type": "official_statistics",
+                    "coverage": "France",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "French Ministry of the Interior Interstats",
+                    "url": "https://www.interieur.gouv.fr/Interstats",
+                    "source_type": "official_statistics",
+                    "coverage": "France",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Eurostat police-recorded offences by offence category",
+                    "url": "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table?lang=en",
+                    "source_type": "official_statistics",
+                    "coverage": "European Union / France",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK France safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/france/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "France",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department France travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/france.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "France",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "Italy": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "ISTAT justice and security statistics",
+                    "url": "https://www.istat.it/en/statistical-themes/institutions-and-society/justice-and-security/",
+                    "source_type": "official_statistics",
+                    "coverage": "Italy",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Eurostat police-recorded offences by offence category",
+                    "url": "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table?lang=en",
+                    "source_type": "official_statistics",
+                    "coverage": "European Union / Italy",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / Italy",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK Italy safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/italy/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Italy",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department Italy travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/italy.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Italy",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "Spain": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "Spain Ministry of the Interior crime statistics portal",
+                    "url": "https://estadisticasdecriminalidad.ses.mir.es/publico/portalestadistico/en/",
+                    "source_type": "official_statistics",
+                    "coverage": "Spain",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Eurostat police-recorded offences by offence category",
+                    "url": "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table?lang=en",
+                    "source_type": "official_statistics",
+                    "coverage": "European Union / Spain",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / Spain",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK Spain safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/spain/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Spain",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department Spain travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/spain.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Spain",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "Netherlands": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "Statistics Netherlands security and justice",
+                    "url": "https://www.cbs.nl/en-gb/society/security-and-justice",
+                    "source_type": "official_statistics",
+                    "coverage": "Netherlands",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Eurostat police-recorded offences by offence category",
+                    "url": "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table?lang=en",
+                    "source_type": "official_statistics",
+                    "coverage": "European Union / Netherlands",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / Netherlands",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK Netherlands safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/netherlands/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Netherlands",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department Netherlands travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/netherlands.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Netherlands",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "Switzerland": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "Swiss Federal Statistical Office crime and criminal justice",
+                    "url": "https://www.bfs.admin.ch/bfs/en/home/statistics/crime-criminal-justice.html",
+                    "source_type": "official_statistics",
+                    "coverage": "Switzerland",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Swiss Federal Statistical Office police crime statistics",
+                    "url": "https://www.bfs.admin.ch/bfs/en/home/statistics/crime-criminal-justice/police.html",
+                    "source_type": "official_statistics",
+                    "coverage": "Switzerland",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / Switzerland",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK Switzerland safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/switzerland/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Switzerland",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department Switzerland travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/switzerland.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Switzerland",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "Ireland": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "Ireland CSO crime and justice statistics",
+                    "url": "https://www.cso.ie/en/statistics/crimeandjustice/",
+                    "source_type": "official_statistics",
+                    "coverage": "Ireland",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Ireland CSO recorded crime",
+                    "url": "https://www.cso.ie/en/statistics/crimeandjustice/recordedcrime/",
+                    "source_type": "official_statistics",
+                    "coverage": "Ireland",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "Eurostat police-recorded offences by offence category",
+                    "url": "https://ec.europa.eu/eurostat/databrowser/view/crim_off_cat/default/table?lang=en",
+                    "source_type": "official_statistics",
+                    "coverage": "European Union / Ireland",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK Ireland safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/ireland/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Ireland",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department Ireland travel advisory",
+                    "url": "https://travel.state.gov/en/international-travel/travel-advisories/ireland.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Ireland",
+                    "traveler_specific": true
+                }
+            ]
+        },
+        "Ukraine": {
+            "official_crime_statistics_sources": [
+                {
+                    "name": "Office of the Prosecutor General of Ukraine statistics",
+                    "url": "https://gp.gov.ua/en/posts/statistika",
+                    "source_type": "official_statistics",
+                    "coverage": "Ukraine",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "National Police of Ukraine annual activity report",
+                    "url": "https://npu.gov.ua/static-objects/npu/sites/1/zvit-npu-2025-eng.pdf",
+                    "source_type": "official_statistics",
+                    "coverage": "Ukraine",
+                    "traveler_specific": false
+                },
+                {
+                    "name": "UNODC Data Portal",
+                    "url": "https://data.unodc.org/",
+                    "source_type": "official_statistics",
+                    "coverage": "International / Ukraine",
+                    "traveler_specific": false
+                }
+            ],
+            "traveler_safety_advisory_sources": [
+                {
+                    "name": "GOV.UK Ukraine safety and security advice",
+                    "url": "https://www.gov.uk/foreign-travel-advice/ukraine/safety-and-security",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Ukraine",
+                    "traveler_specific": true
+                },
+                {
+                    "name": "U.S. State Department Ukraine travel advisory",
+                    "url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/ukraine-travel-advisory.html",
+                    "source_type": "government_travel_advisory",
+                    "coverage": "Ukraine",
+                    "traveler_specific": true
+                }
+            ]
+        }
     }
 }

@@ -17,11 +17,6 @@ def _load_safety_sources() -> Dict[str, Any]:
         return json.load(file)
 
 
-def _get_safety_source_profile(destination_country: str) -> Dict[str, Any]:
-    data = _load_safety_sources()
-    return data.get(destination_country, data["default"])
-
-
 def get_destination_safety_assessment(
     destination_country: str,
     visa_purpose: str,
@@ -37,16 +32,62 @@ def get_destination_safety_assessment(
     country = destination_country.strip()
     purpose = visa_purpose.strip().lower()
     profile = user_segment.strip().lower()
-    source_profile = _get_safety_source_profile(country)
 
-    count_status = source_profile.get("last_5_year_count_status", {})
+    # 1. Load the JSON file
+    data = _load_safety_sources()
+    display_labels = data.get("display_labels", {})
+    countries = data.get("countries", {})
+    disclaimer = data.get(
+        "disclaimer",
+        "Planning signal only. This is not official safety advice. "
+        "General crime counts must not be presented as tourist/student/visa-holder counts unless the source confirms that victim group."
+    )
 
+    # 3. For the selected destination country, read from countries[country_name]
+    country_data = countries.get(country)
+
+    if country_data is not None:
+        # Country is found
+        last_5_year_count_status = country_data.get("last_5_year_count_status")
+        if not last_5_year_count_status:
+            if country == "Ukraine":
+                last_5_year_count_status = "conflict_or_war_risk_context_needed"
+            else:
+                last_5_year_count_status = "official_general_count_possible"
+
+        traveler_specific_count_status = country_data.get("traveler_specific_count_status")
+        if not traveler_specific_count_status:
+            traveler_specific_count_status = "traveler_specific_not_confirmed"
+
+        proxy_status = country_data.get("proxy_status")
+        if not proxy_status:
+            proxy_status = "proxy_possible_using_theft_or_larceny_categories"
+
+        official_crime_statistics_sources = country_data.get("official_crime_statistics_sources", [])
+        traveler_safety_advisory_sources = country_data.get("traveler_safety_advisory_sources", [])
+    else:
+        # 8. If a country is not found, return empty source arrays and safe default labels
+        last_5_year_count_status = "official_stats_need_manual_verification"
+        traveler_specific_count_status = "traveler_specific_not_confirmed"
+        proxy_status = "official_stats_need_manual_verification"
+        official_crime_statistics_sources = []
+        traveler_safety_advisory_sources = []
+
+    # 6. Label logic should be display_labels.get(machine_value, machine_value)
+    last_5_year_count_label = display_labels.get(last_5_year_count_status, last_5_year_count_status)
+    traveler_specific_count_label = display_labels.get(traveler_specific_count_status, traveler_specific_count_status)
+    proxy_status_label = display_labels.get(proxy_status, proxy_status)
+
+    traveler_specific_count_available = (traveler_specific_count_status == "official_traveler_specific_possible")
+
+    # Safety categories structure
     safety_categories: Dict[str, Dict[str, Any]] = {
         "women_safety": {
             "label": "Women safety",
             "planning_signal": "review_required",
-            "last_5_year_count_status": count_status.get("women_safety", "source_review_required"),
-            "traveler_specific_count_available": source_profile.get("traveler_specific_count_available", False),
+            "last_5_year_count_status": last_5_year_count_status,
+            "last_5_year_count_label": last_5_year_count_label,
+            "traveler_specific_count_available": traveler_specific_count_available,
             "what_to_check": [
                 "solo travel advisories",
                 "night travel guidance",
@@ -57,8 +98,9 @@ def get_destination_safety_assessment(
         "robbery_mugging": {
             "label": "Robbery / mugging",
             "planning_signal": "review_required",
-            "last_5_year_count_status": count_status.get("robbery_mugging", "source_review_required"),
-            "traveler_specific_count_available": source_profile.get("traveler_specific_count_available", False),
+            "last_5_year_count_status": last_5_year_count_status,
+            "last_5_year_count_label": last_5_year_count_label,
+            "traveler_specific_count_available": traveler_specific_count_available,
             "what_to_check": [
                 "official robbery or mugging counts",
                 "tourist robbery advisories",
@@ -70,8 +112,9 @@ def get_destination_safety_assessment(
         "pickpocketing": {
             "label": "Pickpocketing",
             "planning_signal": "review_required",
-            "last_5_year_count_status": count_status.get("pickpocketing", "source_review_required"),
-            "traveler_specific_count_available": source_profile.get("traveler_specific_count_available", False),
+            "last_5_year_count_status": last_5_year_count_status,
+            "last_5_year_count_label": last_5_year_count_label,
+            "traveler_specific_count_available": traveler_specific_count_available,
             "what_to_check": [
                 "official theft or larceny data as a proxy",
                 "crowded tourist-area warnings",
@@ -83,8 +126,9 @@ def get_destination_safety_assessment(
         "violent_harm": {
             "label": "Stabbing / shooting / death risk",
             "planning_signal": "review_required",
-            "last_5_year_count_status": count_status.get("violent_harm", "source_review_required"),
-            "traveler_specific_count_available": source_profile.get("traveler_specific_count_available", False),
+            "last_5_year_count_status": last_5_year_count_status,
+            "last_5_year_count_label": last_5_year_count_label,
+            "traveler_specific_count_available": traveler_specific_count_available,
             "what_to_check": [
                 "official violent crime or homicide data",
                 "official violent crime advisories",
@@ -112,18 +156,23 @@ def get_destination_safety_assessment(
         "user_segment": profile,
         "safety_categories": safety_categories,
         "profile_notes": profile_notes,
-        "source_mode": source_profile.get("source_mode", "framework_only"),
-        "official_crime_data_sources": source_profile.get("official_crime_data_sources", []),
-        "travel_advisory_sources": source_profile.get("travel_advisory_sources", []),
-        "traveler_specific_count_available": source_profile.get("traveler_specific_count_available", False),
-        "counting_rule": source_profile.get("counting_rule", ""),
+        "source_mode": "framework_only" if country_data is None else country_data.get("source_mode", "framework_only"),
+        "official_crime_data_sources": official_crime_statistics_sources,
+        "travel_advisory_sources": traveler_safety_advisory_sources,
+        "official_crime_statistics_sources": official_crime_statistics_sources,
+        "traveler_safety_advisory_sources": traveler_safety_advisory_sources,
+        "last_5_year_count_status": last_5_year_count_status,
+        "traveler_specific_count_status": traveler_specific_count_status,
+        "proxy_status": proxy_status,
+        "last_5_year_count_label": last_5_year_count_label,
+        "traveler_specific_count_label": traveler_specific_count_label,
+        "proxy_status_label": proxy_status_label,
+        "traveler_specific_count_available": traveler_specific_count_available,
+        "counting_rule": "Only label a number as traveler-specific when the source explicitly identifies the victim group as tourists, students, visa holders, or foreign workers." if country_data is None else country_data.get("counting_rule", ""),
         "source_confidence": "official_source_framework",
         "source_confidence_explanation": (
             "This version identifies official source families and last-5-year count availability. "
             "It does not invent exact crime counts unless an official dataset confirms the category, year, location, and victim group."
         ),
-        "disclaimer": (
-            "Planning signal only. This is not official safety advice. "
-            "General crime counts must not be presented as tourist/student/visa-holder counts unless the source confirms that victim group."
-        )
+        "disclaimer": disclaimer
     }
