@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.tools.source_links_tool import get_source_links
 from pydantic import BaseModel
 from app.tools.field_applicability_tool import get_field_applicability
 from app.tools.scoring_tool import estimate_visa_route
@@ -67,6 +68,10 @@ def countries():
 @app.get("/countries/{country_name}")
 def country_classification(country_name: str):
     return get_country_classification(country_name)
+
+@app.get("/source-links/{destination_country}")
+def source_links(destination_country: str):
+    return get_source_links(destination_country)
 
 @app.post("/field-applicability")
 def field_applicability(request: FieldApplicabilityRequest):
