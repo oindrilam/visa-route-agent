@@ -5,6 +5,7 @@ from app.tools.scoring_tool import estimate_visa_route
 from app.tools.visa_rules_tool import lookup_visa_rule
 from app.tools.checklist_tool import get_document_checklist
 from app.security.guardrails import check_security_guardrails
+from app.tools.country_tool import get_supported_countries, get_country_classification
 
 
 app = FastAPI(title="VisaRoute Agent API")
@@ -46,6 +47,15 @@ def health():
         "project": "VisaRoute Agent",
         "message": "API is running"
     }
+
+@app.get("/countries")
+def countries():
+    return get_supported_countries()
+
+
+@app.get("/countries/{country_name}")
+def country_classification(country_name: str):
+    return get_country_classification(country_name)
 
 
 @app.get("/visa-rule/{destination_country}")
