@@ -1,0 +1,116 @@
+{
+    "Germany": {
+        "source_mode": "semi_live_framework",
+        "official_crime_data_sources": [
+            {
+                "name": "Eurostat police-recorded offences",
+                "source_type": "official_statistics",
+                "coverage": "Europe",
+                "use_for": [
+                    "robbery_mugging",
+                    "violent_harm",
+                    "theft_proxy_for_pickpocketing"
+                ],
+                "traveler_specific": false
+            },
+            {
+                "name": "UNODC crime data",
+                "source_type": "international_official_dataset",
+                "coverage": "Global",
+                "use_for": [
+                    "homicide",
+                    "robbery",
+                    "violent_crime"
+                ],
+                "traveler_specific": false
+            }
+        ],
+        "travel_advisory_sources": [
+            {
+                "name": "GOV.UK foreign travel advice",
+                "source_type": "government_travel_advisory",
+                "traveler_specific": true
+            },
+            {
+                "name": "U.S. State Department travel advisory",
+                "source_type": "government_travel_advisory",
+                "traveler_specific": true
+            }
+        ],
+        "last_5_year_count_status": {
+            "women_safety": "official_context_possible_not_direct_tourist_count",
+            "robbery_mugging": "official_general_count_possible",
+            "pickpocketing": "proxy_possible_using_theft_or_larceny_categories",
+            "violent_harm": "official_general_count_possible"
+        },
+        "traveler_specific_count_available": false,
+        "counting_rule": "Only label a number as traveler-specific when the source explicitly identifies the victim group as tourists, students, visa holders, or foreign workers."
+    },
+    "United Kingdom": {
+        "source_mode": "semi_live_framework",
+        "official_crime_data_sources": [
+            {
+                "name": "UK Office for National Statistics crime data",
+                "source_type": "official_statistics",
+                "coverage": "United Kingdom",
+                "use_for": [
+                    "robbery_mugging",
+                    "violent_harm",
+                    "theft_proxy_for_pickpocketing"
+                ],
+                "traveler_specific": false
+            }
+        ],
+        "travel_advisory_sources": [
+            {
+                "name": "GOV.UK public safety and police sources",
+                "source_type": "government_source",
+                "traveler_specific": false
+            },
+            {
+                "name": "U.S. State Department travel advisory",
+                "source_type": "government_travel_advisory",
+                "traveler_specific": true
+            }
+        ],
+        "last_5_year_count_status": {
+            "women_safety": "official_context_possible_not_direct_tourist_count",
+            "robbery_mugging": "official_general_count_possible",
+            "pickpocketing": "proxy_possible_using_theft_or_larceny_categories",
+            "violent_harm": "official_general_count_possible"
+        },
+        "traveler_specific_count_available": false,
+        "counting_rule": "Only label a number as traveler-specific when the source explicitly identifies the victim group as tourists, students, visa holders, or foreign workers."
+    },
+    "default": {
+        "source_mode": "semi_live_framework",
+        "official_crime_data_sources": [
+            {
+                "name": "UNODC crime data",
+                "source_type": "international_official_dataset",
+                "coverage": "Global",
+                "use_for": [
+                    "homicide",
+                    "robbery",
+                    "violent_crime"
+                ],
+                "traveler_specific": false
+            }
+        ],
+        "travel_advisory_sources": [
+            {
+                "name": "Government travel advisories",
+                "source_type": "government_travel_advisory",
+                "traveler_specific": true
+            }
+        ],
+        "last_5_year_count_status": {
+            "women_safety": "source_review_required",
+            "robbery_mugging": "official_general_count_may_be_possible",
+            "pickpocketing": "proxy_possible_using_theft_or_larceny_categories",
+            "violent_harm": "official_general_count_may_be_possible"
+        },
+        "traveler_specific_count_available": false,
+        "counting_rule": "Only label a number as traveler-specific when the source explicitly identifies the victim group as tourists, students, visa holders, or foreign workers."
+    }
+}
