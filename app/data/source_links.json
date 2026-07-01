@@ -1,0 +1,97 @@
+{
+    "United Kingdom": {
+        "source_type": "government",
+        "primary_authority": "UK Visas and Immigration / GOV.UK",
+        "official_links": [
+            {
+                "label": "GOV.UK visa and immigration",
+                "url": "https://www.gov.uk/browse/visas-immigration"
+            },
+            {
+                "label": "Apply for a Standard Visitor visa",
+                "url": "https://www.gov.uk/standard-visitor/apply-standard-visitor-visa"
+            }
+        ],
+        "authorized_service_links": [
+            {
+                "label": "VFS Global UK visa services",
+                "url": "https://visa.vfsglobal.com/ind/en/gbr/"
+            }
+        ]
+    },
+    "United States": {
+        "source_type": "government",
+        "primary_authority": "U.S. Department of State",
+        "official_links": [
+            {
+                "label": "Visitor Visa - Travel.State.Gov",
+                "url": "https://travel.state.gov/content/travel/en/us-visas/tourism-visit/visitor.html"
+            },
+            {
+                "label": "Tourism and Visit - Travel.State.Gov",
+                "url": "https://travel.state.gov/content/travel/en/us-visas/tourism-visit.html"
+            }
+        ],
+        "authorized_service_links": []
+    },
+    "Canada": {
+        "source_type": "government",
+        "primary_authority": "Immigration, Refugees and Citizenship Canada",
+        "official_links": [
+            {
+                "label": "IRCC portal - apply online to visit Canada",
+                "url": "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada/portal-application-process.html"
+            },
+            {
+                "label": "Visitor visa application - IRCC",
+                "url": "https://ircc.canada.ca/english/information/applications/visa.asp"
+            }
+        ],
+        "authorized_service_links": []
+    },
+    "Japan": {
+        "source_type": "government",
+        "primary_authority": "Ministry of Foreign Affairs of Japan",
+        "official_links": [
+            {
+                "label": "Japan visa information - MOFA",
+                "url": "https://www.mofa.go.jp/j_info/visit/visa/index.html"
+            },
+            {
+                "label": "Japan eVISA system - MOFA",
+                "url": "https://www.mofa.go.jp/j_info/visit/visa/visaonline.html"
+            }
+        ],
+        "authorized_service_links": []
+    },
+    "India": {
+        "source_type": "government",
+        "primary_authority": "Bureau of Immigration / Government of India",
+        "official_links": [
+            {
+                "label": "India Visa Online",
+                "url": "https://indianvisaonline.gov.in/"
+            },
+            {
+                "label": "India e-Visa",
+                "url": "https://indianvisaonline.gov.in/evisa/"
+            }
+        ],
+        "authorized_service_links": []
+    },
+    "Schengen": {
+        "source_type": "government",
+        "primary_authority": "European Commission - Migration and Home Affairs",
+        "official_links": [
+            {
+                "label": "Applying for a Schengen visa",
+                "url": "https://home-affairs.ec.europa.eu/policies/schengen/visa-policy/applying-schengen-visa_en"
+            },
+            {
+                "label": "EU visa policy",
+                "url": "https://home-affairs.ec.europa.eu/policies/schengen/visa-policy_en"
+            }
+        ],
+        "authorized_service_links": []
+    }
+}

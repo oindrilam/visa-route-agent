@@ -6,8 +6,12 @@ from app.tools.visa_rules_tool import lookup_visa_rule
 
 
 def get_document_checklist(
-    visa_purpose: str,
+    passport_country: str,
+    source_country: str,
     destination_country: str,
+    visa_purpose: str,
+    user_segment: str = "general",
+    dependent_type: str = "not_applicable",
     previous_refusal: bool = False
 ) -> Dict[str, Any]:
     """Return an MVP document checklist for a visa purpose and destination."""
@@ -36,6 +40,10 @@ def get_document_checklist(
     return {
         "found": True,
         "visa_purpose": purpose,
+        "passport_country": passport_country,
+        "source_country": source_country,
+        "user_segment": user_segment,
+        "dependent_type": dependent_type,
         "destination_country": destination_country,
         "visa_category": visa_rule.get("visa_category", "Not available"),
         "appointment_required": visa_rule.get("appointment_required", "Unknown"),

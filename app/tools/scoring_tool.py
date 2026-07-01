@@ -2,9 +2,12 @@ from typing import Dict, Any
 
 
 def estimate_visa_route(
+    passport_country: str,
+    source_country: str,
     visa_purpose: str,
     destination_country: str,
     user_segment: str,
+    dependent_type: str,
     travel_days_from_now: int,
     previous_refusal: bool,
     self_confidence: int,
@@ -79,6 +82,9 @@ def estimate_visa_route(
         recommendation = "Self-apply with checklist guidance"
 
     return {
+        "passport_country": passport_country,
+"source_country": source_country,
+"dependent_type": dependent_type,
         "destination_country": destination_country,
         "visa_purpose": visa_purpose,
         "estimated_calendar_days": calendar_days,
