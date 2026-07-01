@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-
+from app.tools.field_applicability_tool import get_field_applicability
 from app.tools.scoring_tool import estimate_visa_route
 from app.tools.visa_rules_tool import lookup_visa_rule
 from app.tools.checklist_tool import get_document_checklist
@@ -46,6 +46,10 @@ class ChecklistRequest(BaseModel):
 class GuardrailRequest(BaseModel):
     user_query: str
 
+class FieldApplicabilityRequest(BaseModel):
+    visa_purpose: str
+    user_segment: str = "general"
+
 
 @app.get("/health")
 def health():
@@ -63,6 +67,13 @@ def countries():
 @app.get("/countries/{country_name}")
 def country_classification(country_name: str):
     return get_country_classification(country_name)
+
+@app.post("/field-applicability")
+def field_applicability(request: FieldApplicabilityRequest):
+    return get_field_applicability(
+        visa_purpose=request.visa_purpose,
+        user_segment=request.user_segment
+    )
 
 
 @app.get("/visa-rule/{destination_country}")
