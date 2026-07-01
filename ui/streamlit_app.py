@@ -235,6 +235,15 @@ if submitted:
             for category in safety.get("safety_categories", {}).values():
                 with st.expander(category["label"]):
                     st.write(f"**Planning signal:** {category['planning_signal']}")
+                    st.write(
+                        f"**Last 5-year count status:** "
+                        f"{category.get('last_5_year_count_status', 'source_review_required')}"
+                    )
+                    st.write(
+                        f"**Traveler-specific count available:** "
+                        f"{category.get('traveler_specific_count_available', False)}"
+                    )
+
                     st.write("**What to check:**")
                     for item in category.get("what_to_check", []):
                         st.markdown(f"- {item}")
@@ -245,4 +254,21 @@ if submitted:
                 for note in profile_notes:
                     st.markdown(f"- {note}")
 
+            st.write("**Official crime data source families:**")
+            for source in safety.get("official_crime_data_sources", []):
+                st.markdown(
+                    f"- {source['name']} "
+                    f"({source['source_type']}, coverage: {source['coverage']})"
+                )
+
+            st.write("**Travel advisory source families:**")
+            for source in safety.get("travel_advisory_sources", []):
+                st.markdown(
+                    f"- {source['name']} "
+                    f"({source['source_type']})"
+                )
+
+            st.write(f"**Counting rule:** {safety.get('counting_rule', '')}")
             st.info(safety.get("source_confidence_explanation", ""))
+        else:
+            st.warning("Safety assessment is temporarily unavailable.")
