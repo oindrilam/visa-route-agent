@@ -6,11 +6,15 @@ import streamlit as st
 BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000").rstrip("/")
 
 
-st.set_page_config(page_title="VisaRoute Agent", page_icon="??", layout="wide")
+st.set_page_config(page_title="VisaRoute Agent", page_icon="🛂", layout="wide")
 
 st.title("VisaRoute Agent")
-st.write("A neutral visa route optimizer using passport, source country, destination, purpose, profile, and risk signals.")
+st.write(
+    "A neutral visa route optimizer using passport, source country, destination, "
+    "purpose, profile, and risk signals."
+)
 st.caption("Planning guidance only. Not official visa advice.")
+
 
 with st.container():
     country_options = [
@@ -102,6 +106,8 @@ with st.container():
         st.caption("Corporate support: Not applicable for selected visa purpose.")
 
     submitted = st.button("Get Recommendation")
+
+
 if submitted:
     query_text = f"{visa_purpose} visa for {destination_country}"
 
@@ -113,10 +119,11 @@ if submitted:
 
     if not guardrail_response["allowed"]:
         st.error(guardrail_response["message"])
+
     else:
         recommendation = requests.post(
             f"{BACKEND_URL}/recommend",
-           json={
+            json={
                 "passport_country": passport_country,
                 "source_country": source_country,
                 "destination_country": destination_country,
@@ -152,7 +159,10 @@ if submitted:
         col1, col2, col3 = st.columns(3)
         col1.metric("Estimated calendar days", recommendation["estimated_calendar_days"])
         col2.metric("Self-apply effort hours", recommendation["self_apply_effort_hours"])
-        col3.metric("Assisted worth-it score", f"{recommendation['assisted_worth_it_score']}/100")
+        col3.metric(
+            "Assisted worth-it score",
+            f"{recommendation['assisted_worth_it_score']}/100"
+        )
 
         st.subheader("Visa process signals")
         st.write(f"**Visa category:** {checklist['visa_category']}")
@@ -165,3 +175,43 @@ if submitted:
             st.checkbox(document, value=False)
 
         st.info(recommendation["note"])
+
+        links_response = requests.get(
+            f"{BACKEND_URL}/source-links/{destination_country}",
+            timeout=10
+        )
+
+        if links_response.ok:
+            source_links = links_response.json()
+
+            st.subheader("Official / Authorized Visa Sources")
+
+            if source_links.get("available"):
+                st.write(
+                    f"**Primary authority:** "
+                    f"{source_links.get('primary_authority', 'Not configured')}"
+                )
+
+                st.write("**Official government links:**")
+                for link in source_links.get("official_links", []):
+                    st.markdown(f"- [{link['label']}]({link['url']})")
+
+                authorized_links = source_links.get("authorized_service_links", [])
+                if authorized_links:
+                    st.write("**Authorized service links:**")
+                    for link in authorized_links:
+                        st.markdown(f"- [{link['label']}]({link['url']})")
+
+                st.caption(
+                    source_links.get(
+                        "disclaimer",
+                        "Always verify visa rules on the official website before applying."
+                    )
+                )
+            else:
+                st.info(
+                    source_links.get(
+                        "message",
+                        "No official source links configured yet for this destination."
+                    )
+                )
