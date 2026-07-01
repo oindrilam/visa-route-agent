@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.tools.source_links_tool import get_source_links
 from pydantic import BaseModel
+from app.tools.safety_assessment_tool import get_destination_safety_assessment
 from app.tools.field_applicability_tool import get_field_applicability
 from app.tools.scoring_tool import estimate_visa_route
 from app.tools.visa_rules_tool import lookup_visa_rule
@@ -51,6 +52,11 @@ class FieldApplicabilityRequest(BaseModel):
     visa_purpose: str
     user_segment: str = "general"
 
+class SafetyAssessmentRequest(BaseModel):
+    destination_country: str
+    visa_purpose: str
+    user_segment: str = "general"
+
 
 @app.get("/health")
 def health():
@@ -84,6 +90,14 @@ def field_applicability(request: FieldApplicabilityRequest):
 @app.get("/visa-rule/{destination_country}")
 def visa_rule(destination_country: str):
     return lookup_visa_rule(destination_country)
+
+@app.post("/safety-assessment")
+def safety_assessment(request: SafetyAssessmentRequest):
+    return get_destination_safety_assessment(
+        destination_country=request.destination_country,
+        visa_purpose=request.visa_purpose,
+        user_segment=request.user_segment
+    )
 
 
 @app.post("/recommend")
