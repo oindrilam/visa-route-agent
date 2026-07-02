@@ -232,9 +232,19 @@ if submitted:
             st.subheader("Destination Safety Assessment")
             st.caption(safety.get("disclaimer", ""))
 
+            planning_signal_labels = {
+                "review_required": "Review official sources before relying on this",
+                "low": "Lower planning concern",
+                "medium": "Moderate planning concern",
+                "high": "Higher planning concern",
+                "source_review_required": "Review official sources before relying on this"
+            }
+
             for category in safety.get("safety_categories", {}).values():
                 with st.expander(category["label"]):
-                    st.write(f"**Planning signal:** {category['planning_signal']}")
+                    raw_signal = category.get("planning_signal", "")
+                    signal_label = planning_signal_labels.get(raw_signal, raw_signal)
+                    st.write(f"**Planning signal:** {signal_label}")
                     st.write(
                         f"**5-year official data:** "
                         f"{category.get('last_5_year_count_label', safety.get('last_5_year_count_label', 'source_review_required'))}"
